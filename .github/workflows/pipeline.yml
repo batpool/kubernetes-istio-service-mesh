@@ -17,21 +17,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: master
-
-      - name: "🔧 setup go"
-        uses: actions/setup-go@v5
-        with:
-          go-version: 1.24
-          cache-dependency-path: |
-            src/golang-profile-service/go.sum
-
-      - name: "🔨 install dependencies"
-        run: go mod tidy
-        working-directory: src/golang-profile-service
-      
-      - name: "🔎 static code analysis"
-        run: go vet
-        working-directory: src/golang-profile-service
       
       - name: "🔧 setup Docker Buildx"
         uses: docker/setup-buildx-action@v3

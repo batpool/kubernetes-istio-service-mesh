@@ -1,4 +1,4 @@
-name: K8S-ISTIO-PIPELINE
+name: BUILD-PUSH-PIPELINE
 
 on:
   workflow_dispatch:
@@ -44,4 +44,26 @@ jobs:
       
       - name: "🚀 push image to GHCR"
         run: docker push ghcr.io/${{ github.repository_owner }}/profile-service:latest
+  
+  build-auth-service:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: "🔭 checkout code"
+        uses: actions/checkout@v4
+        with:
+          ref: master
+      
+      - name: "📦 build docker image"
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/auth-service:latest .
+        working-directory: src/fastapi-auth-service
+      
+      - name: "🔐 login to GitHub container registry"
+        run: echo "${{ secrets.PKG_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+      
+      - name: "🚀 push image to GHCR"
+        run: docker push ghcr.io/${{ github.repository_owner }}/auth-service:latest
       

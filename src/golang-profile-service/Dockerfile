@@ -20,7 +20,7 @@ LABEL maintainer="Satyabrata <satyabrata.7059@gmail.com>"
 
 WORKDIR /root/
 
-COPY profile-service .
+COPY --from=builder /app/profile-service .
 
 
 EXPOSE 8080

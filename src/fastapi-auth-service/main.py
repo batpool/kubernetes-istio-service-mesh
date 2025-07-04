@@ -27,7 +27,6 @@ app = FastAPI(
     title="Auth Service",
     description='<hr><h3 align="center">Auth Service</h3><p align="center">Authentication service that communicates with profile service</p><hr>',
     version="1.0.0",
-    openapi_url="/api/openapi.json",
     contact={
         "name": "Satyabrata",
         "url": "https://github.com/batpool",

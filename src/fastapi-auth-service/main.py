@@ -37,7 +37,7 @@ app = FastAPI(
         "url": "https://github.com/batpool/kubernetes-istio-service-mesh/blob/master/LICENSE",
     },
     swagger_ui_parameters={"persistAuthorization": True},
-    root_path="/api",
+    root_path=os.getenv("FASTAPI_ROOT_PATH", "/api"),
 )
 
 

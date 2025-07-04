@@ -1,0 +1,47 @@
+name: K8S-ISTIO-PIPELINE
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-profile-service:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: "🔭 checkout code"
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: "🔧 setup go"
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.24
+          cache-dependency-path: |
+            src/golang-profile-service/go.sum
+
+      - name: "🔨 install dependencies"
+        run: go mod tidy
+        working-directory: src/golang-profile-service
+      
+      - name: "🔎 static code analysis"
+        run: go vet
+        working-directory: src/golang-profile-service
+
+      - name: "🔧 build profile service"
+        run: go build -o profile-service main.go
+        working-directory: src/golang-profile-service
+      
+      - name: "📦 build docker image"
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/profile-service:latest .
+        working-directory: src/golang-profile-service
+      
+      - name: "🔐 login to GitHub container registry"
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+      
+      - name: "🚀 push image to GHCR"
+        run: docker push ghcr.io/${{ github.repository_owner }}/profile-service:latest
+      

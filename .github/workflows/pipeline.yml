@@ -6,6 +6,9 @@ on:
 jobs:
   build-profile-service:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
     permissions:
       contents: read
       packages: write
@@ -29,21 +32,31 @@ jobs:
       - name: "🔎 static code analysis"
         run: go vet
         working-directory: src/golang-profile-service
+      
+      - name: "🔧 setup Docker Buildx"
+        uses: docker/setup-buildx-action@v3
+      
+      - name: "🔐 login to GitHub container registry"
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.PKG_TOKEN }}
 
       - name: "🔧 build profile service"
         run: go build -o profile-service main.go
         working-directory: src/golang-profile-service
       
-      - name: "📦 build docker image"
-        run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/profile-service:latest .
-        working-directory: src/golang-profile-service
-      
-      - name: "🔐 login to GitHub container registry"
-        run: echo "${{ secrets.PKG_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-      
-      - name: "🚀 push image to GHCR"
-        run: docker push ghcr.io/${{ github.repository_owner }}/profile-service:latest
+      - name: "📦 build and push multi-arch Docker image"
+        uses: docker/build-push-action@v5
+        with:
+          context: ./src/golang-profile-service
+          file: ./src/golang-profile-service/Dockerfile
+          platforms: linux/${{ matrix.arch }}
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/profile-service:latest
+          provenance: false
   
   build-auth-service:
     runs-on: ubuntu-latest

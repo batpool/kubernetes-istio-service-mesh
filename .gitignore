@@ -207,3 +207,4 @@ marimo/_lsp/
 __marimo__/
 
 src/golang-profile-service/profile-service
+.DS_Store

@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "fastapi-auth-service.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "fastapi-auth-service.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - istio-gateway
+  http:
+    - name: "api"
+      match:
+        - uri:
+            prefix: "/api/"
+        - uri:
+            exact: "/api"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: {{ include "fastapi-auth-service.fullname" . }}
+            port:
+              number: {{ .Values.service.port }}

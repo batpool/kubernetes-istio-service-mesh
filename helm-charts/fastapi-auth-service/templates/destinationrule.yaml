@@ -1,0 +1,10 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ include "fastapi-auth-service.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  host: {{ include "fastapi-auth-service.fullname" . }}
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL

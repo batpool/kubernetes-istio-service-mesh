@@ -1,0 +1,7 @@
+{
+    "editor.formatOnSave": false,
+    "[javascript]": {
+        "editor.defaultFormatter": null
+    },
+    "prettier.enable": false
+}

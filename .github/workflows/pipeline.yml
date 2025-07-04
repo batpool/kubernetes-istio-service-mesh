@@ -26,9 +26,9 @@ jobs:
         run: go mod tidy
         working-directory: src/golang-profile-service
       
-      # - name: "🔎 static code analysis"
-      #   run: go vet
-      #   working-directory: src/golang-profile-service
+      - name: "🔎 static code analysis"
+        run: go vet
+        working-directory: src/golang-profile-service
 
       - name: "🔧 build profile service"
         run: go build -o profile-service main.go

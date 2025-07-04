@@ -22,7 +22,23 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 security = HTTPBearer()
 
-app = FastAPI(title="Auth Service", description="Authentication service that communicates with profile service", version="1.0.0")
+
+app = FastAPI(
+    title="Auth Service",
+    description='<hr><h3 align="center">Auth Service</h3><p align="center">Authentication service that communicates with profile service</p><hr>',
+    version="1.0.0",
+    openapi_url="/api/openapi.json",
+    contact={
+        "name": "Satyabrata",
+        "url": "https://github.com/batpool",
+        "email": "satyabrata.7059@gmail.com",
+    },
+    license_info={
+        "name": "All rights reserved © batpool",
+        "url": "https://github.com/batpool/kubernetes-istio-service-mesh/blob/master/LICENSE",
+    },
+    swagger_ui_parameters={"persistAuthorization": True},
+)
 
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])

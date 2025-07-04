@@ -1,4 +1,4 @@
-# Default values for fastapi-auth-service.
+# Default values for golang-profile-service.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -7,24 +7,16 @@ replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-  repository: ghcr.io/batpool/auth-service
+  repository: ghcr.io/batpool/profile-service
   # This sets the pull policy for images.
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-
-env:
-  - name: FASTAPI_ROOT_PATH
-    value: /api
-  
-  - name: PROFILE_SERVICE_URL
-    value: http://golang-profile-service
-
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 # This is to override the chart name.
-nameOverride: "auth-service"
+nameOverride: "profile-service"
 fullnameOverride: ""
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
@@ -65,7 +57,7 @@ service:
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
   port: 80
 
-  targetPort: 8000
+  targetPort: 8080
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
@@ -99,16 +91,15 @@ resources: {}
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 livenessProbe:
   httpGet:
-    path: /api/healthz
+    path: /healthz
     port: http
   initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 2
   failureThreshold: 3
-
 readinessProbe:
   httpGet:
-    path: /api/healthz
+    path: /healthz
     port: http
   initialDelaySeconds: 10
   periodSeconds: 5

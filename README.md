@@ -31,6 +31,4 @@
   <img src="https://img.shields.io/badge/kiali-enabled-3A6DA8?logo=kiali&logoColor=white" />
   <img src="https://img.shields.io/badge/prometheus-observability-E6522C?logo=prometheus&logoColor=white" />
   <img src="https://img.shields.io/badge/grafana-dashboards-F46800?logo=grafana&logoColor=white" />
-  <img src="https://img.shields.io/badge/docker-multistage-2496ED?logo=docker&logoColor=white" />
-  <img src="https://img.shields.io/badge/ghcr-supported-0A0A0A?logo=github&logoColor=white" />
 </p>

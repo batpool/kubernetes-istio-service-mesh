@@ -17,6 +17,9 @@
   <a href="https://github.com/batpool?tab=packages&repo_name=kubernetes-istio-service-mesh">
     <img src="https://img.shields.io/badge/GHCR-packages-0A0A0A?logo=github&logoColor=white" />
   </a>
+  <a href="https://github.com/batpool/kubernetes-istio-service-mesh/attestations">
+    <img src="https://img.shields.io/badge/SLSA%20provenance-signed-2ea44f?logo=github&logoColor=white" />
+  </a>
   <a href="https://github.com/batpool/kubernetes-istio-service-mesh/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/batpool/kubernetes-istio-service-mesh" />
   </a>

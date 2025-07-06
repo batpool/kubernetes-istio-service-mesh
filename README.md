@@ -52,6 +52,8 @@
 
 - [Screenshot Kiali](#-screenshot-kiali)
 - [Step-by-Step Installation](#%EF%B8%8F-step-by-step-installation-guide)
+  - [Install kind and kubectl macOS (via Homebrew)](#%EF%B8%8F-macos-via-homebrew)
+  - [Install kind and kubectl Ubuntu / Linux](#-ubuntu--linux)
   - [Clone the Repository](#-clone-the-repository)
   - [Create Kind Cluster](#-create-kind-cluster)
   - [Add Istio and Install Components](#-add-istio-helm-repo-and-install-components)
@@ -77,6 +79,48 @@
 <img src="./assets/3.png" />
 
 ## 🛠️ Step-by-Step Installation Guide
+
+### 🖥️ macOS (via Homebrew)
+
+```bash
+# Install Homebrew (if not already installed)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install kind (Kubernetes in Docker)
+brew install kind
+
+# Install kubectl (Kubernetes CLI)
+brew install kubectl
+
+```
+
+### 🐧 Ubuntu / Linux
+
+```bash
+# Install kind
+# For AMD64 / x86_64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-amd64
+# For ARM64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-arm64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+
+# Install kubectl (based on system architecture)
+ARCH=$(uname -m)
+if [ "$ARCH" = "x86_64" ]; then
+  KARCH=amd64
+elif [ "$ARCH" = "aarch64" ]; then
+  KARCH=arm64
+else
+  echo "❌ Unsupported architecture: $ARCH"
+  exit 1
+fi
+
+curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/${KARCH}/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/kubectl
+
+```
 
 ### 🧬 Clone the Repository
 

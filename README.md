@@ -196,7 +196,7 @@ helm install kiali-server kiali-server \
 ### 🚪 Kiali Service Gateway
 
 ```bash
-kubectl apply -f istio/servicemesh/gateway.yaml
+kubectl apply -f istio/kiali/kvs.yaml
 ```
 
 ### ⚙️ Install Microservices

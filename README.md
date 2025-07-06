@@ -60,6 +60,7 @@
   - [Monitoring Setup](#-monitoring-setup)
   - [Kiali Dashboard](#-kiali-dashboard)
   - [Install Microservices](#%EF%B8%8F-install-microservices)
+  - [Access at](#-access-at)
 - [Security](SECURITY.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [License](LICENSE)
@@ -153,6 +154,16 @@ helm install kiali-server kiali-server \
 helm install fastapi-auth-service ./helm-charts/fastapi-auth-service
 
 helm install golang-profile-service ./helm-charts/golang-profile-service
+```
+
+### 🌐 Access at
+
+```bash
+# fastapi microservice
+http://127.0.0.1:8080/api/docs
+
+# kiali
+http://127.0.0.1:8080/kiali/
 ```
 
 <a href="#copyright-and-license">

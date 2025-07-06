@@ -5,6 +5,11 @@
 
 <h1 align="center">Kubernetes Istio Service Mesh With Kiali Console</h1>
 
+> [!IMPORTANT]
+> If you discover a security vulnerability, please do the responsible thing, 
+> **Privately report it** to me at [satyabrata.7059@gmail.com](mailto:satyabrata.7059@gmail.com)
+>
+
 <p align="center">
   <a href="https://github.com/batpool/kubernetes-istio-service-mesh/actions?query=workflow%3ACI+branch%3Amain">
     <img src="https://github.com/batpool/kubernetes-istio-service-mesh/actions/workflows/pipeline.yml/badge.svg?branch=master" />
@@ -149,6 +154,12 @@ helm install fastapi-auth-service ./helm-charts/fastapi-auth-service
 
 helm install golang-profile-service ./helm-charts/golang-profile-service
 ```
+
+<a href="#copyright-and-license">
+  <h2 id="copyright-and-license">Copyright and License</h2>
+</a>
+
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 

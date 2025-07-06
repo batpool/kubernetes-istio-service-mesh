@@ -11,7 +11,7 @@
 >
 
 <p align="center">
-  <a href="https://github.com/batpool/kubernetes-istio-service-mesh/actions?query=workflow%3ACI+branch%3Amain">
+  <a href="https://github.com/batpool/kubernetes-istio-service-mesh/actions?query=workflow%3ABUILD-PUSH+branch%3Amaster">
     <img src="https://github.com/batpool/kubernetes-istio-service-mesh/actions/workflows/pipeline.yml/badge.svg?branch=master" />
   </a>
   <a href="https://github.com/batpool?tab=packages&repo_name=kubernetes-istio-service-mesh">

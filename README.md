@@ -2,7 +2,7 @@
   <img src="./assets/kubernetes-istio-service-mesh-dark.png#gh-dark-mode-only" alt="kubernetes-istio-service-mesh-Logo" width="100%" />
   <img src="./assets/kubernetes-istio-service-mesh-light.png#gh-light-mode-only" alt="kubernetes-istio-service-mesh-Logo" width="100%" />
 </p>
-<hr>
+
 <h1 align="center">Kubernetes Istio Service Mesh With Kiali Console</h1>
 
 <p align="center">
@@ -34,3 +34,5 @@
   <img src="https://img.shields.io/badge/docker-multistage-2496ED?logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/ghcr-supported-0A0A0A?logo=github&logoColor=white" />
 </p>
+
+<hr/>

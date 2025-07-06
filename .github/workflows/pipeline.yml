@@ -1,6 +1,7 @@
 name: BUILD-PUSH-PIPELINE
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - '*' 
@@ -14,6 +15,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      attestations: write
     steps:
       - name: "🔭 checkout code"
         uses: actions/checkout@v4
@@ -40,6 +42,21 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/profile-service:latest
           provenance: false
+      
+      - name: "🔍 extract multi-arch image digest"
+        id: inspect
+        run: |
+          digest=$(docker buildx imagetools inspect ghcr.io/${{ github.repository_owner }}/profile-service:latest | grep Digest | head -n1 | awk '{print $2}')
+          echo "digest=$digest" >> $GITHUB_OUTPUT
+      
+      - name: "🔐 attest profile-service image"
+        uses: actions/attest-build-provenance@v2
+        id: attest
+        with:
+          subject-name: ghcr.io/${{ github.repository_owner }}/profile-service
+          subject-digest: ${{ steps.inspect.outputs.digest }}
+          push-to-registry: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
   
   build-auth-service:
     runs-on: ubuntu-latest
@@ -52,16 +69,34 @@ jobs:
         with:
           ref: master
       
-      - name: "📦 build docker image"
-        run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/auth-service:latest .
-        working-directory: src/fastapi-auth-service
-      
       - name: "🔐 login to GitHub container registry"
-        run: echo "${{ secrets.PKG_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.PKG_TOKEN }}
       
-      - name: "🚀 push image to GHCR"
-        run: docker push ghcr.io/${{ github.repository_owner }}/auth-service:latest
+      - name: "📦 build and push auth-service image"
+        id: push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./src/fastapi-auth-service
+          file: ./src/fastapi-auth-service/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/auth-service:latest
+      
+      - name: "🔍 extract auth-service digest"
+        id: digest
+        run: |
+          echo "digest=${{ steps.push.outputs.digest }}" >> $GITHUB_OUTPUT
+
+      - name: "🔐 attest auth-service image"
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/${{ github.repository_owner }}/auth-service
+          subject-digest: ${{ steps.digest.outputs.digest }}
+          push-to-registry: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
   
   verify-services:
     runs-on: ubuntu-latest

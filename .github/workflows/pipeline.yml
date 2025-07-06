@@ -16,6 +16,7 @@ jobs:
       contents: read
       packages: write
       attestations: write
+      id-token: write
     steps:
       - name: "🔭 checkout code"
         uses: actions/checkout@v4
@@ -63,6 +64,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      attestations: write
+      id-token: write
     steps:
       - name: "🔭 checkout code"
         uses: actions/checkout@v4

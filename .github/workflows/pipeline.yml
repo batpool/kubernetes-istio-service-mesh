@@ -1,7 +1,9 @@
 name: BUILD-PUSH-PIPELINE
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - '*' 
 
 jobs:
   build-profile-service:

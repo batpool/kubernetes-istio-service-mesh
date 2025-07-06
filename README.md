@@ -59,6 +59,7 @@
   - [Install Istio Gateway](#-install-istio-gateway)
   - [Monitoring Setup](#-monitoring-setup)
   - [Kiali Dashboard](#-kiali-dashboard)
+  - [Kiali Service Gateway](#-kiali-service-gateway)
   - [Install Microservices](#%EF%B8%8F-install-microservices)
   - [Access at](#-access-at)
 - [Security](SECURITY.md)
@@ -146,6 +147,12 @@ helm install kiali-server kiali-server \
   --set auth.strategy="anonymous" \
   --set external_services.prometheus.url="http://prometheus-server.monitoring" \
   --set external_services.grafana.enabled=false
+```
+
+### 🚪 Kiali Service Gateway
+
+```bash
+kubectl apply -f istio/servicemesh/gateway.yaml
 ```
 
 ### ⚙️ Install Microservices

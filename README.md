@@ -14,6 +14,12 @@
   <a href="https://github.com/batpool/kubernetes-istio-service-mesh/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/batpool/kubernetes-istio-service-mesh" />
   </a>
+  <a href="https://github.com/batpool/kubernetes-istio-service-mesh/blob/master/CODE_OF_CONDUCT.md">
+    <img src="https://img.shields.io/badge/code%20of%20conduct-active-blueviolet" />
+  </a>
+  <a href="https://github.com/batpool/kubernetes-istio-service-mesh/blob/master/SECURITY.md">
+    <img src="https://img.shields.io/badge/security-policy-important?color=red&logo=github" />
+  </a>
 </p>
 
 <p align="center">
